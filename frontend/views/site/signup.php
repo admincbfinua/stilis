@@ -10,14 +10,15 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+	<div class="reg-form">
+		<div class="container">
+			<div class="reg">
+				<h3>Register Now</h3>
+				<p>Welcome, please enter the following details to continue.</p>
+				<p>If you have previously registered with us, <a href="#">click here</a></p>
+				<?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
@@ -29,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>
 
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-</div>
+				<?php ActiveForm::end(); ?>
+			</div>
+		</div>
+	</div>

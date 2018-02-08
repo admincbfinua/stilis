@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -26,56 +27,179 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+		
+		<div class="header">
+            <div class="container">
+                <div class="header-top">
+                    <div class="logo">
+                        <a href="index.html">Stilis</a>
+                    </div>
+                    <div class="login-bars">
+							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/contact']);?>" role="button">Contact</a>
+						<?php if(Yii::$app->user->isGuest):?>
+							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/signup']);?>" role="button">Sign up</a>
+							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/login']);?>" role="button">Login</a>
+						<?php else:?>
+							<?= Html::beginForm(['/site/logout', 'id' => $id], 'post') ?>
+							<?= Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link log-bar']) ?>
+							<?= Html::endForm() ?>
+						<?php endif; ?>
+                       
+                    </div>
+        <div class="clearfix"></div>
+                </div>
+                <!---menu-----bar--->
+                <div class="header-botom">
+                    <div class="content white">
+                    <nav class="navbar navbar-default nav-menu" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <!--/.navbar-header-->
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+                        <div class="collapse navbar-collapse collapse-pdng" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav nav-font">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Новинки<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Женская</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Мужская</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Женская<b class="caret"></b></a>
+                                    <ul class="dropdown-menu multi-column columns-3">
+                                        <div class="row">
+                                            <div class="col-sm-4 menu-img-pad">
+                                                <ul class="multi-column-dropdown">
+                                                    <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Латина</a></li>
+                                                    <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Стандарт</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Практика</a></li>
+                                                    
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-4 menu-img-pad">
+                        <a href="#"><img src="images/menu1.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+                                            </div>
+                                            <div class="col-sm-4 menu-img-pad">
+                        <a href="#"><img src="images/menu2.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Мужская<b class="caret"></b></a>
+                                    <ul class="dropdown-menu multi-column columns-2">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <ul class="multi-column-dropdown">
+                                                    <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Латина</a></li>
+                                                    <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Стандарт</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Практика</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-6">
+                        <a href="#"><img src="images/menu3.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Детская<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<?php echo Url::to(['/product/products','category'=>100]);?>">Стандарт</a></li>
+                                       
+                                    </ul>
+                                </li>
+                                <li><a href="<?php echo Url::to(['/site/contact']);?>">Контакты</a></li>
+                                <div class="clearfix"></div>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!--/.navbar-collapse-->
+                        <div class="clearfix"></div>
+                    </nav>
+                    <!--/.navbar-->   
+                        <div class="clearfix"></div>
+                    </div>
+                    <!--/.content--->
+                </div>
+                    <!--header-bottom-->
+            </div>
+        </div>
+		
+		
+		<!--  main content goes here -->
+		<?= $content ?>
+		
+		
+		
+        
+		
+		
+		
+		
+		
+		
+		<!-- footer -->
+        <div class="footer-grid">
+            <div class="container">
+                <div class="col-md-2 re-ft-grd">
+                    <h3>Categories</h3>
+                    <ul class="categories">
+                        <li><a href="#">Men</a></li>
+                        <li><a href="#">Women</a></li>
+                        <li><a href="#">Kids</a></li>
+                        <li><a href="#">Formal</a></li>
+                        <li><a href="#">Casuals</a></li>
+                        <li><a href="#">Sports</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 re-ft-grd">
+                    <h3>Short links</h3>
+                    <ul class="shot-links">
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Delivery</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Terms & conditions</a></li>
+                        <li><a href="contact.html">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 re-ft-grd">
+                    <h3>Social</h3>
+                    <ul class="social">
+                        <li><a href="#" class="fb">facebook</a></li>
+                        <li><a href="#" class="twt">twitter</a></li>
+                        <li><a href="#" class="gpls">g+ plus</a></li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+                <div class="col-md-2 re-ft-grd">
+                    <div class="bt-logo">
+                        <div class="logo">
+                            <a href="index.html" class="ft-log">N-AIR</a>
+                        </div>
+                    </div>
+                </div>
+        <div class="clearfix"></div>
+            </div>
+            <div class="copy-rt">
+                <div class="container">
+            <p>&copy;   2015 N-AIR All Rights Reserved. Design by <a href="http://www.w3layouts.com">w3layouts</a></p>
+                </div>
+            </div>
+        </div>
+		<!-- end footer -->
 
 <?php $this->endBody() ?>
 </body>
