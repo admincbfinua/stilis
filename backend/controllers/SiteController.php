@@ -38,6 +38,7 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+			\backend\behaviors\Amiadmin::className(),
         ];
     }
 
@@ -60,7 +61,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if(!$this->checkIsMeAdmin())
+		{
+			echo 'Restricted zone. Only admin permissons. ';
+			$this->actionLogout();
+		};
+		return $this->render('index');
     }
 
     /**

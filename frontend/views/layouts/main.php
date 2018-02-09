@@ -26,7 +26,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+	<?php $menus = new \frontend\components\GetMenuRecurs(); $menu = $menus->getMenu();?>
 		
 		<div class="header">
             <div class="container">
@@ -62,7 +62,63 @@ AppAsset::register($this);
                         </div>
                         <div class="clearfix"></div>
                         <!--/.navbar-header-->
-
+						
+						<!-- new menu -->
+						<?php if($menu):?>
+						  <div class="collapse navbar-collapse collapse-pdng" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav nav-font">
+								<?php foreach ($menu as $item) :?>
+									
+								<?php if (count($item->childs)):?>
+ 
+								<?php foreach ($item->childs as $child) :?>
+								<?php if ($child->language_id==1):?>
+								<li class="dropdown">
+									
+									<a href="<?php echo($child->route_url)? Url::to([$child->route_url]): null; ?>" class="<?php if (count($child->childs)):?>dropdown-toggle<?php endif;?>" <?php if (count($child->childs)):?>data-toggle="dropdown"<?php endif;?>><?php echo $child->name;?> <?php if (count($child->childs)):?><b class="caret"></b><?php endif;?></a>
+									<?php if (count($child->childs)):?>
+ 									<ul class="dropdown-menu multi-column columns-3">
+                                        <div class="row">
+										
+                                            <div class="col-sm-4 menu-img-pad">
+                                                <ul class="multi-column-dropdown">
+												<?php foreach ($child->childs as $sec_child) :?>
+													<li><a href="<?php echo($child->route_url)? Url::to([$child->route_url,'id'=>$sec_child->id]): null; ?>"><?php echo $sec_child->name;?></a></li>
+                                                   <!-- <li class="divider"></li>-->
+                                                   
+                                                <?php endforeach; ?>   
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-4 menu-img-pad">
+												<a href="#"><img src="images/menu1.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+                                            </div>
+                                            <div class="col-sm-4 menu-img-pad">
+												<a href="#"><img src="images/menu2.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+                                            </div>
+											
+                                        </div>
+										<?php endif;?>	
+                                    </ul>
+									
+												
+								</li>
+								<?php endif;?>
+								<?php endforeach; ?>
+								<?php endif;?>
+							<?php endforeach; ?>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+					<?php endif;?>
+						<!-- end new menu -->
+						
+						
+						
+						
+						
+						
+						<!-- origin -->
+						<?php if(false):?>
                         <div class="collapse navbar-collapse collapse-pdng" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav nav-font">
                                 <li class="dropdown">
@@ -125,6 +181,14 @@ AppAsset::register($this);
                             </ul>
                             <div class="clearfix"></div>
                         </div>
+						<?php endif;?>
+						<!-- end origin -->
+						
+						
+						
+						
+						
+						
                         <!--/.navbar-collapse-->
                         <div class="clearfix"></div>
                     </nav>

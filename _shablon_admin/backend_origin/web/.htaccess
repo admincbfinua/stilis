@@ -1,0 +1,13 @@
+# use mod_rewrite for pretty URL support
+RewriteEngine on
+# if a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# otherwise forward the request to index.php
+RewriteRule . index.php
+#AuthName Exclusive
+#AuthType Basic
+#AuthUserFile /public_html/components/exclusivepass/pass
+#AuthGroupFile /dev/null
+#require user cbfroot
+#deny from 89.178.17.225
