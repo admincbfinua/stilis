@@ -170,7 +170,12 @@ $(document).ready(function() {
     }
 });
 // /iCheck
-
+$(document).on('ready', function() {
+    $("#input-44").fileinput({
+        uploadUrl: '/product/upload-images',
+        maxFilePreviewSize: 10240
+    });
+});
 // Table
 $('table input').on('ifChecked', function () {
     checkState = '';

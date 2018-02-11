@@ -71,7 +71,7 @@ AppAsset::register($this);
 					  <li><a href="<?php echo Url::to(['site/index']);?>"><?php echo \Yii::t('/yii','Index page backend');?></a></li>		
                       <li><a href="<?php echo Url::to(['language/index']);?>"><?php echo \Yii::t('/yii','Language site. Create');?></a></li>
 					  <li><a href="<?php echo Url::to(['menu/index']);?>"><?php echo \Yii::t('/yii','Create menu struchere');?></a></li>
-                      
+                       <li><a href="<?php echo Url::to(['product/index']);?>"><?php echo \Yii::t('/yii','Create product');?></a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul>
                   </li>
