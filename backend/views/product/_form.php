@@ -12,6 +12,18 @@ echo '</pre>';
 */
 $lng = ArrayHelper::map($lang,'id','name');
 $menus = ArrayHelper::map($menu,'id','name');
+$arrMenus = array();
+if($menu)
+{
+	foreach($menu as $item)
+	{
+		$lngThis = ($item->language_id==1)?'(lng rus)':'(lng ua)';
+		$arrMenus[$item->id]= $item->name . ' '.$lngThis;//$item->name . '('.($item->language_id==1)?'рус':'укр'.')';
+	}
+}
+//echo '<pre>';
+//print_r($arrMenus);
+//echo '</pre>';
 ?>
 
 <div class="product-form">
@@ -21,8 +33,8 @@ $menus = ArrayHelper::map($menu,'id','name');
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
    
-	<?php if($menus): ?>
-		<?= $form->field($model, 'menuId')->dropDownList($menus) ?>
+	<?php if($arrMenus): ?>
+		<?= $form->field($model, 'menuId')->dropDownList($arrMenus) ?>
 	<?php else: ?>
 		 <?= $form->field($model, 'menuId')->textInput() ?>
 	<?php endif;?>
@@ -37,18 +49,18 @@ $menus = ArrayHelper::map($menu,'id','name');
 
     <?= $form->field($model, 'sort')->textInput() ?>
 
-	<?= $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
-                            'options' => ['accept'=>'image/*', 'multiple' => true],
-                            'pluginOptions' => [
-                                'uploadUrl' => Url::to(['/product/upload-images']),
-                                'uploadAsync' => false,
-                                'allowedFileExtensions' => ['jpg'],
-                                'showUpload' => true,
-                                'maxFileCount' => 10,                             
+	<?php //echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
+           //                 'options' => ['accept'=>'image/*', 'multiple' => true],
+           //                 'pluginOptions' => [
+            //                    'uploadUrl' => Url::to(['/product/upload-images']),
+            //                    'uploadAsync' => false,
+             //                   'allowedFileExtensions' => ['jpg'],
+             //                   'showUpload' => true,
+             //                   'maxFileCount' => 10,                             
                                
-                            ],
+             //               ],
                            
-                        ])->label(false) 
+            //            ])->label(false) 
 	?>
 	
 	<?= Html::label('Select or multi select product color', 'Productcolor', ['class' => '']) ?>

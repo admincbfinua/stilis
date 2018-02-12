@@ -10,6 +10,8 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
+use frontend\widgets\WLang;
+use common\models\Lang;
 
 AppAsset::register($this);
 ?>
@@ -26,15 +28,19 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+<?php //echo 'lang='.Lang::getCurrent()->id;?>
+<?php //if(isset(Lang::getCurrent()->url) && Lang::getCurrent()->url=='ua'){};?>
 	<?php $menus = new \frontend\components\GetMenuRecurs(); $menu = $menus->getMenu();?>
 		
 		<div class="header">
             <div class="container">
                 <div class="header-top">
                     <div class="logo">
-                        <a href="index.html">Stilis</a>
+                        <a href="/">Stilis</a>
                     </div>
                     <div class="login-bars">
+							<?= WLang::widget();?>
+							
 							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/contact']);?>" role="button">Contact</a>
 						<?php if(Yii::$app->user->isGuest):?>
 							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/signup']);?>" role="button">Sign up</a>
@@ -72,7 +78,7 @@ AppAsset::register($this);
 								<?php if (count($item->childs)):?>
  
 								<?php foreach ($item->childs as $child) :?>
-								<?php if ($child->language_id==1):?>
+								<?php if ($child->language_id == Lang::getCurrent()->id):?>
 								<li class="dropdown">
 									
 									<a href="<?php echo($child->route_url)? Url::to([$child->route_url]): null; ?>" class="<?php if (count($child->childs)):?>dropdown-toggle<?php endif;?>" <?php if (count($child->childs)):?>data-toggle="dropdown"<?php endif;?>><?php echo $child->name;?> <?php if (count($child->childs)):?><b class="caret"></b><?php endif;?></a>
@@ -83,17 +89,17 @@ AppAsset::register($this);
                                             <div class="col-sm-4 menu-img-pad">
                                                 <ul class="multi-column-dropdown">
 												<?php foreach ($child->childs as $sec_child) :?>
-													<li><a href="<?php echo($child->route_url)? Url::to([$child->route_url,'id'=>$sec_child->id]): null; ?>"><?php echo $sec_child->name;?></a></li>
+													<li><a href="<?php echo($child->route_url)? Url::to(['/'.Lang::getCurrent()->url.$sec_child->route_url,'id'=>$sec_child->id]): null; ?>"><?php echo $sec_child->name;?></a></li>
                                                    <!-- <li class="divider"></li>-->
                                                    
                                                 <?php endforeach; ?>   
                                                 </ul>
                                             </div>
                                             <div class="col-sm-4 menu-img-pad">
-												<a href="#"><img src="images/menu1.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+												<a href="/"><img src="images/menu1.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
                                             </div>
                                             <div class="col-sm-4 menu-img-pad">
-												<a href="#"><img src="images/menu2.jpg" alt="/" class="img-rsponsive men-img-wid" /></a>
+												<a href="/"><img src="images/menu2.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
                                             </div>
 											
                                         </div>

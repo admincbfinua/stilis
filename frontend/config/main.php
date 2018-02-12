@@ -36,14 +36,37 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+		'request' => [
+			'baseUrl' => '',
+			'class' => 'frontend\components\LangRequest'
+		],
+		'i18n' => [
+			'translations' => [
+				'*' => [
+					'class' => 'yii\i18n\PhpMessageSource',
+					'basePath' => '@frontend/messages',
+					'sourceLanguage' => 'en-US',
+					'fileMap' => [
+						//'main' => 'main.php',
+						],
+					],
+				'eauth' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@eauth/messages',
+					],
+				],
+			],
+		'formatter' => [
+               'class' => 'yii\i18n\Formatter',
+               'defaultTimeZone' => 'Europe/Kiev',
+        ],		
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+       
     ],
     'params' => $params,
 ];

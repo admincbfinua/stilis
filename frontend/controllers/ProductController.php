@@ -12,6 +12,11 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Product;
+use common\models\ProductImage;
+use common\models\ProductCharacter;
+use common\models\Language;
+use common\models\Menu;
 
 /**
  * Site controller
@@ -32,9 +37,17 @@ class ProductController extends Controller
     }
 
    
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        return $this->render('index');
+        $model='';
+		if((int) $id>0)
+		{	
+			$model = Product::find()->where(['id'=>(int) $id])->one();
+		}
+		//$lang = Language::find()->all();
+		//$prPhotos = new ProductImage();
+		//$prChar = ProductCharacter::find()->all();
+		return $this->render('index',[ 'model' => $model,]);
     }
 	public function actionProducts()
     {

@@ -7,27 +7,42 @@ $this->title = 'product';
 //$this->registerJsFile(Yii::getAlias('@web') . '/js/imagezoom.js', ['depends' => [yii\web\JqueryAsset::className()]]);
 //$this->registerJsFile(Yii::getAlias('@web') . '/js/jquery.flexslider.js', ['depends' => [yii\web\JqueryAsset::className()]]);
 //$this->registerJsFile(Yii::getAlias('@web') . '/js/productPage.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+//echo '<pre>';
+//print_r($model->image);
+//echo '</pre>';
+//if($model->image)
+//{
+	//foreach($model->image as $key=>$image)
+	//{
+		//echo $image['name'];
+	//}
+	//echo count($model->image);
+	/*for($i=0; count($model->image)>$i; $i++)
+	{
+		echo $model->image[$i]['name'].'<br>';
+	}
+	*/
+//}	
+//echo $model['image'][0]['name'];
+//$model->character here all character of this goods
+//$model->image['name'] here all images 
+
 ?>
 			
 <div class="showcase-grid">
             <div class="container">
                 <div class="col-md-8 showcase">
                     <div class="flexslider">
+						<?php if($model->image):?>
                           <ul class="slides">
-                            <li data-thumb="images/show.jpg">
-                                <div class="thumb-image"> <img src="images/show.jpg" data-imagezoom="true" class="img-responsive"> </div>
+						  <?php foreach($model->image as $key=>$image): ?>
+                            <li data-thumb="<?php echo Yii::$app->basePath . '/web/uploads/photos/1'.$image['name'];?>">
+                                <div class="thumb-image"> <img src="<?php echo Yii::$app->basePath . '/web/uploads/photos/1'.$image['name'];?>" data-imagezoom="true" class="img-responsive"> <?php //echo $image['name'];?></div>
                             </li>
-                            <li data-thumb="images/show1.jpg">
-                                 <div class="thumb-image"> <img src="images/show1.jpg" data-imagezoom="true" class="img-responsive"> </div>
-                            </li>
-                            <li data-thumb="images/show2.jpg">
-                               <div class="thumb-image"> <img src="images/show2.jpg" data-imagezoom="true" class="img-responsive"> </div>
-                            </li>
-                            <li data-thumb="images/show3.jpg">
-                               <div class="thumb-image"> <img src="images/show3.jpg" data-imagezoom="true" class="img-responsive"> </div>
-                            </li>
+                           
+							<?php endforeach;?>
                           </ul> 
-						 
+						 <?php endif; ?>
                         <div class="clearfix"></div>
                     </div>
                 </div>

@@ -36,7 +36,7 @@ class ProductCharacter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['productId', 'color', 'size', 'material', 'brand', 'type', 'price', 'discount', 'dop1'], 'required'],
+            [['productId', 'color', 'size'], 'required'],
             [['productId', 'discount'], 'integer'],
             [['price'], 'number'],
             [['color', 'size', 'material', 'brand', 'type', 'dop1'], 'string', 'max' => 255],
