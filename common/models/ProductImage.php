@@ -59,9 +59,9 @@ class ProductImage extends \yii\db\ActiveRecord
 	
 	public function getImageFile($dirId)
     {
-        $pathToPhotos = Yii::$app->basePath . '/web/uploads/photos/' . $dirId;
+        $pathToPhotos = Yii::getAlias('@frontend') . '/web/uploads/photos/' . $dirId;
         if (!is_dir($pathToPhotos)) {
-            FileHelper::createDirectory(Yii::$app->basePath . '/web/uploads/photos/' . $dirId);
+            FileHelper::createDirectory(Yii::getAlias('@frontend') . '/web/uploads/photos/' . $dirId);
         }
         return isset($this->name) ? $pathToPhotos . '/' . $this->name : null;
     }

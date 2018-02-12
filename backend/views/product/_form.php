@@ -49,21 +49,26 @@ if($menu)
 
     <?= $form->field($model, 'sort')->textInput() ?>
 
-	<?php //echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
-           //                 'options' => ['accept'=>'image/*', 'multiple' => true],
-           //                 'pluginOptions' => [
-            //                    'uploadUrl' => Url::to(['/product/upload-images']),
-            //                    'uploadAsync' => false,
-             //                   'allowedFileExtensions' => ['jpg'],
-             //                   'showUpload' => true,
-             //                   'maxFileCount' => 10,                             
+	<?php echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
+                           'options' => ['accept'=>'image/*', 'multiple' => true],
+                           'pluginOptions' => [
+                                'uploadUrl' => Url::to(['/product/upload-images']),
+                                'uploadAsync' => false,
+                                'allowedFileExtensions' => ['jpg'],
+                               'showUpload' => true,
+                                'maxFileCount' => 10,                             
                                
-             //               ],
+                            ],
                            
-            //            ])->label(false) 
+                        ])->label(false) 
 	?>
-	
-	<?= Html::label('Select or multi select product color', 'Productcolor', ['class' => '']) ?>
+	<?= Html::label('Short description', 'Shortdesc', ['style' => 'width:100%']) ?>
+	<?= Html::input('text', 'dop1', '', ['class' => '']) ?>
+	<?= Html::label('Full description', 'Fulldesc', ['style' => 'width:100%']) ?>
+	<?= Html::input('text', 'fulldesc', '', ['class' => '']) ?>
+	<?= Html::label('Product specaility', 'Specaility', ['style' => 'width:100%']) ?>
+	<?= Html::input('text', 'special', '', ['class' => '']) ?>
+	<?= Html::label('Select or multi select product color', 'Productcolor', ['style' => 'width:100%']) ?>
 	<?= Html::checkboxList('color', '', ['gold'=>'gold','silver'=>'silver','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix']) ?>	
 	<?= Html::label('Select or multi select product size', 'Productsize', ['class' => '']) ?>
 	<?= Html::checkboxList('size', '',[26=>26,27=>27,28=>28,29=>29,30=>30,36=>36,37=>37,38=>38,39=>39,40=>40,41=>41,42=>42,43=>43,44=>44,45=>45]) ?>

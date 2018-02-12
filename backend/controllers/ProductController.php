@@ -151,7 +151,8 @@ class ProductController extends Controller
 	
 	public function actionUploadImages()
     {
-        // get the files posted
+        //echo Yii::getAlias('@frontend');die;
+		// get the files posted
 		$pr = new Product();
         $prPhotos = new ProductImage();
 	    $images = UploadedFile::getInstances($prPhotos, 'name');
