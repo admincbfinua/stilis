@@ -37,9 +37,9 @@ class ProductCharacter extends \yii\db\ActiveRecord
     {
         return [
             [['productId', 'color', 'size'], 'required'],
-            [['productId', 'discount'], 'integer'],
+            [['productId', 'discount','showinslider','twotopgoods','goodsonindex'], 'integer'],
             [['price'], 'number'],
-            [['color', 'size', 'material', 'brand', 'type', 'dop1'], 'string', 'max' => 255],
+            [['color', 'size', 'material', 'brand', 'type'], 'string', 'max' => 255],
             [['productId'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['productId' => 'id']],
         ];
     }
@@ -59,7 +59,9 @@ class ProductCharacter extends \yii\db\ActiveRecord
             'type' => 'Type',
             'price' => 'Price',
             'discount' => 'Discount',
-            'dop1' => 'Dop1',
+            'showinslider'=>'showinslider',
+			'twotopgoods'=>'twotopgoods',
+			'goodsonindex'=>'goodsonindex'
         ];
     }
 

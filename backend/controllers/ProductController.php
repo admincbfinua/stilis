@@ -57,17 +57,26 @@ class ProductController extends Controller
 		$lang = Language::find()->all();
 		$prPhotos = new ProductImage();
 		$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
-		$prChar = ProductCharacter::find()->all();
-        if ($model->load(Yii::$app->request->post()))//$prPhotos->load(Yii::$app->request->post())
+		//$prChar = ProductCharacter::find()->all();
+		$prChar = new ProductCharacter();
+        if ($model->load(Yii::$app->request->post()) && $prChar->load(Yii::$app->request->post()))
 		{
             
-			//echo '<pre>';print_r(Yii::$app->request->post());echo '</pre>';
+			//echo '<pre>';print_r(Yii::$app->request->post('ProductCharacter'));echo '</pre>';
+			//echo 'showinslider'.Yii::$app->request->post('showinslider');
 			
 			$model->save();
-				
 			
+			$prChar->productId = $model->id;	
+			$prChar->color = json_encode($prChar->color);
+			$prChar->size = json_encode($prChar->size);
+			$prChar->discount= ($prChar->discount)?$prChar->discount:0;
+			//$prChar->showinslider =(null!=$prChar->showinslider)?1:0;
+			//$prChar->twotopgoods =(null!=$prChar->twotopgoods)?1:0;
+			//$prChar->goodsonindex =(null!=$prChar->goodsonindex)?1:0;
+			$prChar->save();
 			$images = FileHelper::findFiles(Yii::getAlias('@frontend') . '/web/uploads/temp/1');
-			//$images = FileHelper::findFiles(Yii::$app->basePath . '/web/uploads/temp/1');
+			
                 if (!empty($images)) {
                     foreach ($images as $image) {
                        
@@ -82,7 +91,7 @@ class ProductController extends Controller
                     }
                 }
 			$color='';$size='';	
-			if(Yii::$app->request->post('color'))
+			/*if(Yii::$app->request->post('color'))
 			{
 				$color = json_encode(Yii::$app->request->post('color'));
 			}
@@ -90,11 +99,12 @@ class ProductController extends Controller
 			{
 				$size = json_encode(Yii::$app->request->post('size'));
 			}
+			*/
 			//echo $color."<br />";
 			//echo $size;
 			if($color && $size)
 			{
-				$prChar = new ProductCharacter();
+				/*$prChar = new ProductCharacter();
                 $prChar->productId = $model->id;
 				$prChar->color = $color;
 				$prChar->size = $size;
@@ -103,10 +113,13 @@ class ProductController extends Controller
 				$prChar->material = (Yii::$app->request->post('material'))? \yii\helpers\HtmlPurifier::process(Yii::$app->request->post('material')):'';
 				$prChar->brand = (Yii::$app->request->post('brand'))? \yii\helpers\HtmlPurifier::process(Yii::$app->request->post('brand')):'';
 				$prChar->type = (Yii::$app->request->post('type'))? \yii\helpers\HtmlPurifier::process(Yii::$app->request->post('type')):'';
+				$prChar->showinslider = (Yii::$app->request->post('showinslider'))? (int) Yii::$app->request->post('showinslider'):0;
+				$prChar->twotopgoods = (Yii::$app->request->post('twotopgoods'))? (int) Yii::$app->request->post('twotopgoods'):0;
+				$prChar->goodsonindex = (Yii::$app->request->post('goodsonindex'))? (int) Yii::$app->request->post('goodsonindex'):0;
 				$prChar->save();
-				
+				*/
 			}
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->actionIndex();
         }
 
         return $this->render('create', [
@@ -122,13 +135,22 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+		$lang = Language::find()->all();
+		$prPhotos = new ProductImage();
+		//$prChar = new ProductCharacter;
+		//$prPhotos = ProductImage::find()->where(['productId'=>$id])->all();
+		$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
+		$prChar = ProductCharacter::find()->where(['productId'=>$id])->one();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+			'prPhotos'=>$prPhotos,
+			'menu'=>$menu,
+			'lang'=>$lang,
+			'prChar'=>$prChar,
         ]);
     }
 

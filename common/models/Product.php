@@ -30,9 +30,10 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'menuId'], 'required'],
+            [['name', 'menuId','shortdesc','fulldesc'], 'required'],
             [['menuId', 'landuage_id', 'status', 'sort'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['name','shortdesc'], 'string', 'max' => 255],
+			[['specialcharac'],'string']
         ];
     }
 
@@ -48,6 +49,10 @@ class Product extends \yii\db\ActiveRecord
             'landuage_id' => 'Landuage ID',
             'status' => 'Status',
             'sort' => 'Sort',
+			'shortdesc' => 'Short description',
+			'fulldesc' => 'Full product description',
+			'specialcharac' => 'Product special character'
+			
         ];
     }
 	

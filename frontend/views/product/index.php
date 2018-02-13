@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-$this->title = 'product';
+$this->title = $model->name .' '. \Yii::t('/yii','Dance shoes');
 
 //$this->registerJsFile(Yii::getAlias('@web') . '/js/imagezoom.js', ['depends' => [yii\web\JqueryAsset::className()]]);
 //$this->registerJsFile(Yii::getAlias('@web') . '/js/jquery.flexslider.js', ['depends' => [yii\web\JqueryAsset::className()]]);
@@ -116,8 +116,8 @@ if($model->image)
                     <div class="showcase-last">
                         <h3>Характеристики</h3>
                         <ul>
-                            <?php if($model['character'][0]['dop1']):?>
-								<li><?php echo $model['character'][0]['dop1'];?></li>
+                            <?php if($model->shortdesc):?>
+								<li><?php echo $model->shortdesc;?></li>
 							<?php endif;?>
 							<?php if($model['character'][0]['material']):?>
 								<li><?php echo $model['character'][0]['material'];?></li>
@@ -148,15 +148,15 @@ if($model->image)
                     <!-- Tab panes -->
                     <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">
-                    <?php if($model['character'][0]['fulldesc']):?>
-						<?php echo $model['character'][0]['fulldesc'];?>
+                    <?php if($model->fulldesc):?>
+						<?php echo $model->fulldesc;?>
 					<?php else:?>
 						данных нет	
 					<?php endif;?>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="profile">
-                    <?php if($model['character'][0]['special']):?>
-						<?php echo $model['character'][0]['special'];?>
+                    <?php if($model->specialcharac):?>
+						<?php echo $model->specialcharac;?>
 					<?php else:?>
 						данных нет
 					<?php endif;?>  
