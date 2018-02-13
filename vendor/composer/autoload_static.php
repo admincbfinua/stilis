@@ -30,11 +30,19 @@ class ComposerStaticInitdb86dda285cbe1b4a513f834c5a7d802
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'm' => 
+        array (
+            'mihaildev\\ckeditor\\' => 19,
+        ),
         'k' => 
         array (
             'kartik\\plugins\\fileinput\\' => 25,
             'kartik\\file\\' => 12,
             'kartik\\base\\' => 12,
+        ),
+        'd' => 
+        array (
+            'dosamigos\\tinymce\\' => 18,
         ),
         'c' => 
         array (
@@ -116,6 +124,10 @@ class ComposerStaticInitdb86dda285cbe1b4a513f834c5a7d802
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
+        'mihaildev\\ckeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mihaildev/yii2-ckeditor',
+        ),
         'kartik\\plugins\\fileinput\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/bootstrap-fileinput',
@@ -127,6 +139,10 @@ class ComposerStaticInitdb86dda285cbe1b4a513f834c5a7d802
         'kartik\\base\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
+        ),
+        'dosamigos\\tinymce\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-tinymce-widget/src',
         ),
         'cebe\\markdown\\' => 
         array (

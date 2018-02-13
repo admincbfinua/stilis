@@ -5,11 +5,14 @@ use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use mihaildev\ckeditor\CKEditor;
+use dosamigos\tinymce\TinyMce;
 
-/*echo '<pre>';
-print_r($prChar);
+
+echo '<pre>';
+print_r($model->character);
 echo '</pre>';
-*/
+
 $lng = ArrayHelper::map($lang,'id','name');
 $menus = ArrayHelper::map($menu,'id','name');
 $arrMenus = array();
@@ -21,9 +24,6 @@ if($menu)
 		$arrMenus[$item->id]= $item->name . ' '.$lngThis;//$item->name . '('.($item->language_id==1)?'рус':'укр'.')';
 	}
 }
-//echo '<pre>';
-//print_r($arrMenus);
-//echo '</pre>';
 ?>
 
 <div class="product-form">
@@ -49,7 +49,7 @@ if($menu)
 
     <?= $form->field($model, 'sort')->textInput() ?>
 
-	<?php echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
+	<?php /*echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
                            'options' => ['accept'=>'image/*', 'multiple' => true],
                            'pluginOptions' => [
                                 'uploadUrl' => Url::to(['/product/upload-images']),
@@ -61,11 +61,38 @@ if($menu)
                             ],
                            
                         ])->label(false) 
+			*/
+			
 	?>
+	
 	<?= Html::label('Short description', 'Shortdesc', ['style' => 'width:100%']) ?>
 	<?= Html::input('text', 'dop1', '', ['class' => '']) ?>
 	<?= Html::label('Full description', 'Fulldesc', ['style' => 'width:100%']) ?>
-	<?= Html::input('text', 'fulldesc', '', ['class' => '']) ?>
+	<?php 
+	/*echo $form->field($prChar, 'fulldesc')->widget(CKEditor::className(),[
+		'editorOptions' => [
+			'preset' => 'full', 
+			'inline' => false, 
+		],
+	]);
+	*/
+	?>
+	<?php 
+	/*echo $form->field($model->character, 'fulldesc')->widget(TinyMce::className(), [
+    'options' => ['rows' => 6],
+    'language' => 'es',
+    'clientOptions' => [
+        'plugins' => [
+            "advlist autolink lists link charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste"
+        ],
+        'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    ]
+]);
+*/
+?>
+	<?//= Html::input('text', 'fulldesc', '', ['class' => '']) ?>
 	<?= Html::label('Product specaility', 'Specaility', ['style' => 'width:100%']) ?>
 	<?= Html::input('text', 'special', '', ['class' => '']) ?>
 	<?= Html::label('Select or multi select product color', 'Productcolor', ['style' => 'width:100%']) ?>
