@@ -14,7 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
-
+use yii\helpers\Url;
 
 class ProductController extends Controller
 {
@@ -71,9 +71,7 @@ class ProductController extends Controller
 			$prChar->color = json_encode($prChar->color);
 			$prChar->size = json_encode($prChar->size);
 			$prChar->discount= ($prChar->discount)?$prChar->discount:0;
-			//$prChar->showinslider =(null!=$prChar->showinslider)?1:0;
-			//$prChar->twotopgoods =(null!=$prChar->twotopgoods)?1:0;
-			//$prChar->goodsonindex =(null!=$prChar->goodsonindex)?1:0;
+			
 			$prChar->save();
 			$images = FileHelper::findFiles(Yii::getAlias('@frontend') . '/web/uploads/temp/1');
 			
@@ -90,35 +88,7 @@ class ProductController extends Controller
                         }
                     }
                 }
-			$color='';$size='';	
-			/*if(Yii::$app->request->post('color'))
-			{
-				$color = json_encode(Yii::$app->request->post('color'));
-			}
-			if(Yii::$app->request->post('size'))
-			{
-				$size = json_encode(Yii::$app->request->post('size'));
-			}
-			*/
-			//echo $color."<br />";
-			//echo $size;
-			if($color && $size)
-			{
-				/*$prChar = new ProductCharacter();
-                $prChar->productId = $model->id;
-				$prChar->color = $color;
-				$prChar->size = $size;
-				$prChar->price = (Yii::$app->request->post('price'))?(float) Yii::$app->request->post('price'):'';
-				$prChar->discount = (Yii::$app->request->post('discount'))? (int) Yii::$app->request->post('discount'):0;
-				$prChar->material = (Yii::$app->request->post('material'))? \yii\helpers\HtmlPurifier::process(Yii::$app->request->post('material')):'';
-				$prChar->brand = (Yii::$app->request->post('brand'))? \yii\helpers\HtmlPurifier::process(Yii::$app->request->post('brand')):'';
-				$prChar->type = (Yii::$app->request->post('type'))? \yii\helpers\HtmlPurifier::process(Yii::$app->request->post('type')):'';
-				$prChar->showinslider = (Yii::$app->request->post('showinslider'))? (int) Yii::$app->request->post('showinslider'):0;
-				$prChar->twotopgoods = (Yii::$app->request->post('twotopgoods'))? (int) Yii::$app->request->post('twotopgoods'):0;
-				$prChar->goodsonindex = (Yii::$app->request->post('goodsonindex'))? (int) Yii::$app->request->post('goodsonindex'):0;
-				$prChar->save();
-				*/
-			}
+			
 			return $this->actionIndex();
         }
 
@@ -137,12 +107,45 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 		$lang = Language::find()->all();
 		$prPhotos = new ProductImage();
-		//$prChar = new ProductCharacter;
-		//$prPhotos = ProductImage::find()->where(['productId'=>$id])->all();
+		
+		$_photos = ProductImage::find()->where(['productId'=>$id])->all();
+		$existingPhotos = [];
+		$initPrevConfAsArr =[];
+		if($_photos)
+		{
+			foreach ($_photos as $photo)
+			{
+              $existingPhotos[] = Yii::$app->request->hostInfo . '/frontend/web/uploads/photos/1/'.$photo->name;
+			  $initPrevConfAsArr[]= ['url' => Url::to(['/product/delete-images','key' => $photo->name]),'key' => $photo->name];
+			}
+		}
 		$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
 		$prChar = ProductCharacter::find()->where(['productId'=>$id])->one();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $prChar->load(Yii::$app->request->post())) 
+		{
+         	$model->save();
+			$prChar->productId = $model->id;
+			$prChar->color = json_encode($prChar->color);
+			$prChar->size = json_encode($prChar->size);
+			$prChar->discount= ($prChar->discount)?$prChar->discount:0;
+			$prChar->save();
+			$images = FileHelper::findFiles(Yii::getAlias('@frontend') . '/web/uploads/temp/1');
+			
+                if (!empty($images))
+				{
+                    foreach ($images as $image) {
+                       
+						$prPhotos = new ProductImage();
+                        $prPhotos->productId = $model->id;
+                        $prPhotos->name = basename($image);
+					    if ($prPhotos->save()) 
+						{
+                            $path = $prPhotos->getImageFile(1);
+                            rename($image, $path);
+                        }
+                    }
+                }
+			return $this->actionIndex();
         }
 
         return $this->render('update', [
@@ -151,6 +154,8 @@ class ProductController extends Controller
 			'menu'=>$menu,
 			'lang'=>$lang,
 			'prChar'=>$prChar,
+			'existingPhotos'=>$existingPhotos,
+			'initPrevConfAsArr'=>$initPrevConfAsArr,
         ]);
     }
 
@@ -226,6 +231,28 @@ class ProductController extends Controller
         }
         // return a json encoded response for plugin to process successfully
         echo json_encode($output);
+    }
+	public function actionDeleteImages()
+    {
+     	$src = Yii::$app->request->post('key');
+		$success = false;
+		if($src)
+		{
+			$target = Yii::getAlias('@frontend') . '/web/uploads/photos/1/' . $src;
+			if (file_exists($target)) 
+			{
+				unlink($target);
+				$model = ProductImage::find()->where(['name' => $src])->one();
+				$model->delete();
+				$success = true;
+				$output=['success' => 'Delete processed.'];
+			}
+			else
+			{
+				$output=['error' => 'No files '];
+			}
+		}
+			echo json_encode($output);
     }
 	public function makeimage($filename,$source,$w,$height,$fname,$big)
     {

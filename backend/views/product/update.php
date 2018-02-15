@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 		'menu'=>$menu,
 		'lang'=>$lang,
 		'prChar'=>$prChar,
+		'existingPhotos'=>$existingPhotos,
+		'initPrevConfAsArr'=>$initPrevConfAsArr,
     ]) ?>
 
 </div>

@@ -11,7 +11,7 @@ use mihaildev\ckeditor\CKEditor;
 
 //echo '<pre>';
 //print_r($model->character);
-//print_r($prChar['color']);
+//print_r($existingPhotos);
 
 //echo '</pre>';
 
@@ -50,23 +50,36 @@ if($menu)
     <?= $form->field($model, 'status')->DropDownList([1=>'show in front',0=>'not active(dont show in front)']) ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
-
-	<?php echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
-                           'options' => ['accept'=>'image/*', 'multiple' => true],
-                           'pluginOptions' => [
-                                'uploadUrl' => Url::to(['/product/upload-images']),
+	<?php if(isset($existingPhotos) && $existingPhotos): ?>
+		<?php 
+						echo  $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
+							'options'=>['accept'=>'image/*', 'multiple' => true],
+							'pluginOptions' => [
+								'uploadUrl' => Url::to(['/product/upload-images']),
                                 'uploadAsync' => false,
-                                'allowedFileExtensions' => ['jpg'],
-                               'showUpload' => true,
-                                'maxFileCount' => 10,                             
-                               
-                            ],
-                           
-                        ])->label(false) 
-			
-			
-	?>
-	
+								'initialPreview'=>$existingPhotos,
+								'initialPreviewAsData'=>true,
+								'initialCaption'=>"Uploaded photo",
+								'initialPreviewConfig' => $initPrevConfAsArr,
+								'overwriteInitial'=>false,
+								'maxFileSize'=>2800
+							],
+							
+						 ])->label(false); 
+						?>
+	<?php else:?>
+		<?php echo $form->field($prPhotos, 'name[]')->widget(FileInput::classname(), [
+							   'options' => ['accept'=>'image/*', 'multiple' => true],
+							   'pluginOptions' => [
+									'uploadUrl' => Url::to(['/product/upload-images']),
+									'uploadAsync' => false,
+									'allowedFileExtensions' => ['jpg'],
+								   'showUpload' => true,
+									'maxFileCount' => 10,                             
+								],
+							])->label(false) 
+		?>
+	<?php endif;?>
 	<?= $form->field($model, 'shortdesc')->textInput() ?>
 	
 	<?php 
@@ -85,8 +98,21 @@ if($menu)
 		],
 	]);
 	?>
+	
+	<?php if(isset($prChar['color']) && $prChar['color']): ?>
+		 <?php $prChar['color']=json_decode($prChar['color']);?>
 	 <?= $form->field($prChar, 'color')->checkboxList(['gold'=>'gold','silver'=>'silver','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix']) ?>
+	<?php else: ?>	
+		<?= $form->field($prChar, 'color')->checkboxList(['gold'=>'gold','silver'=>'silver','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix']) ?>
+	 <?php endif;?>
+	 
+	 <?php if(isset($prChar['size']) && $prChar['size']): ?>
+		 <?php $prChar['size']=json_decode($prChar['size']);?>
 	 <?= $form->field($prChar, 'size')->checkboxList([26=>26,27=>27,28=>28,29=>29,30=>30,36=>36,37=>37,38=>38,39=>39,40=>40,41=>41,42=>42,43=>43,44=>44,45=>45]) ?>
+	<?php else: ?>	
+		<?= $form->field($prChar, 'size')->checkboxList([26=>26,27=>27,28=>28,29=>29,30=>30,36=>36,37=>37,38=>38,39=>39,40=>40,41=>41,42=>42,43=>43,44=>44,45=>45]) ?>
+	 <?php endif;?>
+	 
 	 <?= $form->field($prChar, 'price')->textInput() ?>
 	 <?= $form->field($prChar, 'discount')->textInput() ?>
 	 <?= $form->field($prChar, 'material')->textInput() ?>
@@ -95,26 +121,7 @@ if($menu)
 	 <?= $form->field($prChar, 'showinslider')->DropDownList([0=>'dont show',1=>'show']) ?>
 	 <?= $form->field($prChar, 'twotopgoods')->DropDownList([0=>'dont show',1=>'show']) ?>
 	 <?= $form->field($prChar, 'goodsonindex')->DropDownList([0=>'dont show',1=>'show']) ?>
-	<?//= Html::label('Select or multi select product color', 'Productcolor', ['style' => 'width:100%']) ?>
-	<?//= Html::checkboxList('color', '', ['gold'=>'gold','silver'=>'silver','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix']) ?>	
-	<?//= Html::label('Select or multi select product size', 'Productsize', ['class' => '']) ?>
-	<?//= Html::checkboxList('size', '',[26=>26,27=>27,28=>28,29=>29,30=>30,36=>36,37=>37,38=>38,39=>39,40=>40,41=>41,42=>42,43=>43,44=>44,45=>45]) ?>
-	<?//= Html::label('Input product price(grn)', 'Productprice', ['style' => 'width:100%']) ?>
-	<?//= Html::input('text', 'price', '', ['class' => '']) ?>
-	<?//= Html::label('Input product discount(%), if it need', 'Productdiscount', ['style' => 'width:100%']) ?>
-	<?//= Html::input('text', 'discount', '', ['class' => '']) ?>
-	<?//= Html::label('Input product material, if it need', 'Productmaterial', ['style' => 'width:100%']) ?>
-	<?//= Html::input('text', 'material', '', ['class' => '']) ?>
-	<?//= Html::label('Input product brand, if it need', 'Productmaterial', ['style' => 'width:100%']) ?>
-	<?//= Html::input('text', 'brand', '', ['class' => '']) ?>
-	<?//= Html::label('Input product type, if it need', 'Productmaterial', ['style' => 'width:100%']) ?>
-	<?//= Html::input('text', 'type', '', ['class' => '']) ?>
-	<?//= Html::label('Show in slider', 'Productmaterial', ['style' => 'width:100%']) ?>
-	<?//= Html::dropDownList('showinslider', '', [0=>'dont show',1=>'show']) ?>
-	<?//= Html::label('Show in two top goods on index', 'Productmaterial', ['style' => 'width:100%']) ?>
-	<?//= Html::dropDownList('twotopgoods', '', [0=>'dont show',1=>'show']) ?>
-	<?//= Html::label('Show this goods on index', 'Productmaterial', ['style' => 'width:100%']) ?>
-	<?//= Html::dropDownList('goodsonindex', '', [0=>'dont show',1=>'show']) ?>
+	
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

@@ -56,7 +56,10 @@ class ProductImage extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Product::className(), ['id' => 'productId']);
     }
-	
+	public function getAssociatedArray()
+	{
+		return $this->getProduct()->select('id')->column();
+	}
 	public function getImageFile($dirId)
     {
         $pathToPhotos = Yii::getAlias('@frontend') . '/web/uploads/photos/' . $dirId;
