@@ -28,8 +28,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php //echo 'lang='.Lang::getCurrent()->id;?>
-<?php //if(isset(Lang::getCurrent()->url) && Lang::getCurrent()->url=='ua'){};?>
+
 	<?php $menus = new \frontend\components\GetMenuRecurs(); $menu = $menus->getMenu();?>
 		
 		<div class="header">
@@ -41,10 +40,10 @@ AppAsset::register($this);
                     <div class="login-bars">
 							<?= WLang::widget();?>
 							
-							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/contact']);?>" role="button">Contact</a>
+							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/contact']);?>" role="button"><?php echo \Yii::t('/yii','Contacts');?></a>
 						<?php if(Yii::$app->user->isGuest):?>
-							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/signup']);?>" role="button">Sign up</a>
-							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/login']);?>" role="button">Login</a>
+							<!--<a class="btn btn-default log-bar" href="<?php //echo Url::to(['/site/signup']);?>" role="button"><?php //echo \Yii::t('/yii','Signup');?></a>-->
+							<a class="btn btn-default log-bar" href="<?php echo Url::to(['/site/login']);?>" role="button"><?php echo \Yii::t('/yii','Login');?></a>
 						<?php else:?>
 							<?= Html::beginForm(['/site/logout', 'id' => $id], 'post') ?>
 							<?= Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link log-bar']) ?>
@@ -182,7 +181,7 @@ AppAsset::register($this);
                                        
                                     </ul>
                                 </li>
-                                <li><a href="<?php echo Url::to(['/site/contact']);?>">Контакты</a></li>
+                                <li><a href="<?php echo Url::to(['/site/contact']);?>"><?php echo \Yii::t('/yii','Contacts');?></a></li>
                                 <div class="clearfix"></div>
                             </ul>
                             <div class="clearfix"></div>
@@ -206,66 +205,59 @@ AppAsset::register($this);
                     <!--header-bottom-->
             </div>
         </div>
-		
-		
+		<div>
+		 <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+		<?= Alert::widget() ?>
+		</div>
 		<!--  main content goes here -->
 		<?= $content ?>
-		
-		
-		
-        
-		
-		
-		
-		
-		
 		
 		<!-- footer -->
         <div class="footer-grid">
             <div class="container">
                 <div class="col-md-2 re-ft-grd">
+				<?php if($menu):?>
                     <h3>Categories</h3>
                     <ul class="categories">
-                        <li><a href="#">Men</a></li>
-                        <li><a href="#">Women</a></li>
-                        <li><a href="#">Kids</a></li>
-                        <li><a href="#">Formal</a></li>
-                        <li><a href="#">Casuals</a></li>
-                        <li><a href="#">Sports</a></li>
+					<?php foreach ($menu as $item) :?>
+					<?php if (count($item->childs)):?>
+ 						<?php foreach ($item->childs as $child) :?>
+							<?php if ($child->language_id == Lang::getCurrent()->id):?>
+								<li><a href="<?php echo($child->route_url)? Url::to([$child->route_url]): null; ?>"><?php echo $child->name;?> </a></li>
+					
+							<?php endif;?>
+						<?php endforeach; ?>	
+					<?php endif;?>
+                       
+					<?php endforeach; ?>	
                     </ul>
+					<?php endif;?>
                 </div>
                 <div class="col-md-2 re-ft-grd">
                     <h3>Short links</h3>
                     <ul class="shot-links">
-                        <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Delivery</a></li>
-                        <li><a href="#">Return Policy</a></li>
-                        <li><a href="#">Terms & conditions</a></li>
-                        <li><a href="contact.html">Sitemap</a></li>
+                        <li><a href="<?php echo Url::to(['/site/contact']);?>"><?php echo \Yii::t('/yii','Contacts');?></a></li>
+                        <li><a href="/"><?php echo \Yii::t('/yii','Support');?></a></li>
+                        <li><a href="/">Delivery<?php echo \Yii::t('/yii','Delivery');?></a></li>
+                        <li><a href="/"><?php echo \Yii::t('/yii','Return Policy');?></a></li>
+                        <li><a href="/"><?php echo \Yii::t('/yii','Terms & conditions');?></a></li>
+                        <li><a href="/"><?php echo \Yii::t('/yii','Sitemap');?></a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 re-ft-grd">
-                    <h3>Social</h3>
-                    <ul class="social">
-                        <li><a href="#" class="fb">facebook</a></li>
-                        <li><a href="#" class="twt">twitter</a></li>
-                        <li><a href="#" class="gpls">g+ plus</a></li>
-                        <div class="clearfix"></div>
-                    </ul>
+                    <h3>On map</h3>
+                    
                 </div>
                 <div class="col-md-2 re-ft-grd">
-                    <div class="bt-logo">
-                        <div class="logo">
-                            <a href="index.html" class="ft-log">N-AIR</a>
-                        </div>
-                    </div>
+                     <h3>0953195738</h3>
                 </div>
         <div class="clearfix"></div>
             </div>
             <div class="copy-rt">
                 <div class="container">
-            <p>&copy;   2015 N-AIR All Rights Reserved. Design by <a href="http://www.w3layouts.com">w3layouts</a></p>
+            <p>&copy;   2015  Dance showes. Powered by <a href="mailto:mischenkoa@ukr.net">mischenko@ukr.net</a></p>
                 </div>
             </div>
         </div>

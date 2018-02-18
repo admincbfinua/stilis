@@ -12,7 +12,11 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-
+use common\models\Product;
+use common\models\ProductImage;
+use common\models\ProductCharacter;
+use common\models\Menu;
+use common\models\Lang;
 /**
  * Site controller
  */
@@ -72,7 +76,32 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+       $prCharSlider=array();$prCharTop=array();$prCharIndex=array();
+	   $model = Product::find()->all();
+	   $lang = Lang::getCurrent()->id;
+	   $q = Product::find()->where(['status' => 1,'landuage_id'=>$lang])->joinWith(['character', 'image'])->indexBy('id')->orderBy(['sort'=>SORT_ASC])->all();
+	   if($q)
+	   {
+			foreach($q as $key)
+			{
+				
+				if($key['character'][0]['showinslider'])
+				{
+					$prCharSlider[$key['id']]=array('id'=>$key['id'],'image'=>$key['image'][0]['name'],'name'=>$key['name']);
+				}
+				if($key['character'][0]['twotopgoods'])
+				{
+					$prCharTop[$key['id']]=array('id'=>$key['id'],'image'=>$key['image'][0]['name'],'name'=>$key['name'],'shortdesc'=>$key['shortdesc']);
+				}
+				if($key['character'][0]['goodsonindex'])
+				{
+					$prCharIndex[$key['id']]=array('id'=>$key['id'],'image'=>$key['image'][0]['name'],'name'=>$key['name'],'price'=>$key['character'][0]['price']);
+				}
+				
+			}
+	   }
+	  
+	   return $this->render('index',[ 'model' => $model,'prCharSlider'=>$prCharSlider,'prCharTop'=>$prCharTop,'prCharIndex'=>$prCharIndex,]);
     }
 
     /**

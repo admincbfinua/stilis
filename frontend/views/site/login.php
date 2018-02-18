@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
@@ -43,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h3>New Registration</h3>
                             <div class="strip"></div>
                             <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-                            <a href="register.html" class="button">Create An Account</a>
+                            <a href="<?php echo Url::to(['/site/signup']);?>" class="button"><?php echo \Yii::t('/yii','Signup');?></a>
                     </div>
                     <div class="clearfix"></div>
                 </div>

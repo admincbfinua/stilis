@@ -3,30 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 $this->title = $model->name .' '. \Yii::t('/yii','Dance shoes');
-
-//$this->registerJsFile(Yii::getAlias('@web') . '/js/imagezoom.js', ['depends' => [yii\web\JqueryAsset::className()]]);
-//$this->registerJsFile(Yii::getAlias('@web') . '/js/jquery.flexslider.js', ['depends' => [yii\web\JqueryAsset::className()]]);
-//$this->registerJsFile(Yii::getAlias('@web') . '/js/productPage.js', ['depends' => [yii\web\JqueryAsset::className()]]);
-//echo '<pre>';
-//print_r($model->image);
-//echo '</pre>';
-
-if($model->image)
-{
-	foreach($model->image as $key=>$image)
-	{
-		//echo $image['name'];
-	}
-	//echo count($model->image);
-	/*for($i=0; count($model->image)>$i; $i++)
-	{
-		echo $model->image[$i]['name'].'<br>';
-	}
-	*/
-}	
-//echo $model['image'][0]['name'];
-//$model->character here all character of this goods
-//$model->image['name'] here all images 
+$this->params['breadcrumbs'][] = $model->name;
 
 ?>
 <?php if($model):?>			
@@ -88,11 +65,11 @@ if($model->image)
 							<?php if($model['character'][0]['color']):?>
 							<?php $color = json_decode($model['character'][0]['color']);?>
                             <li class="qty">
-                                <h4>Цвет</h4>
+                                <h4><?php echo \Yii::t('/yii','View/color');?></h4>
                                 <select class="form-control qnty-chrt">
                                  <?php if($color):?>
                                   <?php foreach($color as $col):?>
-									<option><?php echo $col;?></option>
+									<option><?php echo \Yii::t('/yii',$col);?></option>
                                   <?php endforeach;?>
 								  <?php else:?>
 									<option>уточните у продавца</option>
@@ -170,67 +147,35 @@ if($model->image)
 </div>
 <div class="you-might-like">
             <div class="container">
-                <h3 class="you-might">Вас может заинтересовать</h3>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                     <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid4.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-                                    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="single.html">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid6.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="single.html">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid3.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="single.html">Quick view</a>
-                    </div>
-                </div>
+                <h3 class="you-might"><?php echo \Yii::t('/yii','Some likes goods');?></h3>
+				<?php if($prCharPrIndex):?>
+					<?php foreach($prCharPrIndex as $prId):?>
+					<div class="col-md-4 grid-stn simpleCart_shelfItem">
+						 <!-- normal -->
+							<div class="ih-item square effect3 bottom_to_top">
+								<div class="bottom-2-top">
+									<div class="img"><img src="<?php echo Yii::$app->request->hostInfo . '/frontend/web/uploads/photos/1/'.$prId['image'];?>" alt="<?php echo $prId['name'];?>" class="img-responsive gri-wid" width="300" height="200">
+									</div>
+									<div class="info">
+										<div class="pull-left styl-hdn">
+											<h3><?php echo $prId['name'];?></h3>
+										</div>
+										<div class="pull-right styl-price">
+											<p><a  href="#" class="item_add"><span class="glyphicon grid-cart" aria-hidden="true"></span> <span class=" item_price">грн <?php echo $prId['price'];?></span></a></p>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>
+						<!-- end normal -->
+						<div class="quick-view">
+							<a href="<?php echo Url::to(['/product/index','id'=>$prId['id']]);?>"><?php echo \Yii::t('/yii','Quick view');?></a>
+						</div>
+					</div>
+					<?php endforeach;?>
+				<?php endif;?>
+               
+                
                 <div class="clearfix"></div>
             </div>
 </div>

@@ -2,44 +2,46 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-$this->title = 'My Yii Application';
+$this->title = \Yii::t('/yii','Dance shoes');
+/*echo '<pre>';
+print_r($prCharSlider);
+echo '</pre>';
+die;
+*/
 ?>
+<?php if($model):?>
+<?php $data_slide=0;$act_slide=0;$_top=0;?>
 <div class="header-end">
             <div class="container">
+				
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators -->
+                  
+				  <?php if($prCharSlider):?>
+				  <?php $count_Sliders=count($prCharSlider);?>
+				  <!-- Indicators -->
                   <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
+				  <?php for($data_slide=0;$count_Sliders>$data_slide;$data_slide++):?>
+                    <li data-target="#myCarousel" data-slide-to="<?php echo $data_slide;?>" <?php if($data_slide==0):?>class="active" <?php endif;?>></li>
+                  <?php endfor;?>	
                   </ol>
 
                   <!-- Wrapper for slides -->
                   <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="./images/shoe3.jpg" alt="...">
+				    <?php foreach($prCharSlider as $prId):?>
+					<?php $_act =($act_slide==0)?'item active':'item'; ?>
+				  
+                    <div class="<?php echo $_act;?>">
+                        <a href="<?php echo Url::to(['/product/index','id'=>$prId['id']]);?>"><img src="<?php echo Yii::$app->request->hostInfo . '/frontend/web/uploads/photos/1/'.$prId['image'];?>" alt="<?php echo $prId['name'];?>" width="650" height="408"></a>
                         <div class="carousel-caption car-re-posn">
-                            <h3>AirMax</h3>
-                            <h4>You feel to fall</h4>
+                            <h3></h3>
+                            <h4><?php echo $prId['name'];?></h4>
                             <span class="color-bar"></span>
                         </div>
                     </div>
-                    <div class="item">
-                      <img src="./images/shoe1.jpg" alt="...">
-                        <div class="carousel-caption car-re-posn">
-                            <h3>AirMax</h3>
-                            <h4>You feel to fall</h4>
-                            <span class="color-bar"></span>
-                        </div>
-                    </div>
-                    <div class="item">
-                      <img src="./images/shoe2.jpg" alt="...">
-                        <div class="carousel-caption car-re-posn">
-                            <h3>AirMax</h3>
-                            <h4>You feel to fall</h4>
-                            <span class="color-bar"></span>
-                        </div>
-                    </div>
+                    
+					
+						<?php $act_slide++;?>
+					  <?php endforeach;?>
                   </div>
 
                   <!-- Controls -->
@@ -51,155 +53,67 @@ $this->title = 'My Yii Application';
                     <span class="glyphicon glyphicon-chevron-right car-icn" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                   </a>
+				  <?php endif;?>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
 		
+		
+		<?php if($prCharTop):?>
+		<?php $count_top=count($prCharTop);?>
         <div class="feel-fall">
             <div class="container">
-                <div class="pull-left fal-box">
-                    <div class=" fall-left">
-                        <h3>Fall</h3>
-                        <img src="images/f-l.png" alt="/" class="img-responsive fl-img-wid">
-                        <p>Inspiration and innovation<br> for every athlete in the world</p>
-                        <span class="fel-fal-bar"></span>
+				<?php foreach($prCharTop as $prId):?>
+				<?php if($_top<2):?>
+				<?php $_top_class =($_top==0)?'pull-left fal-box':'pull-right fel-box'; ?>
+				<?php $_top_class1 =($_top==0)?'fall-left':'feel-right'; ?>
+				<?php $_top_class2 =($_top==0)?'fel-fal-bar':'fel-fal-bar2'; ?>
+                <div class="<?php echo $_top_class;?>">
+                    <div class="<?php echo $_top_class1;?>">
+                        <h3><?php echo $prId['name'];?></h3>
+                        <a href="<?php echo Url::to(['/product/index','id'=>$prId['id']]);?>"><img src="<?php echo Yii::$app->request->hostInfo . '/frontend/web/uploads/photos/1/'.$prId['image'];?>" alt="<?php echo $prId['name'];?>" class="img-responsive fl-img-wid" width="300" height="400"></a>
+                        <p><?php echo $prId['shortdesc'];?></p>
+                        <span class="<?php echo $_top_class2;?>"></span>
                     </div>
                 </div>
-                <div class="pull-right fel-box">
-                    <div class="feel-right">
-                        <h3>Feel</h3>
-                        <img src="images/f-r.png" alt="/" class="img-responsive fl-img-wid">
-                        <p>Inspiration and innovation<br> for every athlete in the world</p>
-                        <span class="fel-fal-bar2"></span>
-                    </div>
-                </div>
+				<?php $_top++;?>
+				<?php endif;?>
+				<?php endforeach;?>
+               
             <div class="clearfix"></div>
             </div>
         </div>
+		 <?php endif;?>
         <div class="shop-grid">
             <div class="container">
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                     <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid4.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-                                    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid6.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid3.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid5.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid7.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                    <!-- normal -->
-                        <div class="ih-item square effect3 bottom_to_top">
-                            <div class="bottom-2-top">
-                    <div class="img"><img src="images/grid8.jpg" alt="/" class="img-responsive gri-wid"></div>
-                            <div class="info">
-                                <div class="pull-left styl-hdn">
-                                    <h3>style 01</h3>
-                                </div>
-                                <div class="pull-right styl-price">
-    <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div></div>
-                        </div>
-                    <!-- end normal -->
-                    <div class="quick-view">
-                        <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                    </div>
-                </div>
-        <div class="clearfix"></div>
+				<?php if($prCharIndex):?>
+				<?php foreach($prCharIndex as $prId):?>
+					<div class="col-md-4 grid-stn simpleCart_shelfItem">
+						 <!-- normal -->
+							<div class="ih-item square effect3 bottom_to_top">
+								<div class="bottom-2-top">
+									<div class="img"><img src="<?php echo Yii::$app->request->hostInfo . '/frontend/web/uploads/photos/1/'.$prId['image'];?>" alt="<?php echo $prId['name'];?>" class="img-responsive gri-wid" width="300" height="200">
+									</div>
+									<div class="info">
+										<div class="pull-left styl-hdn">
+											<h3><?php echo $prId['name'];?></h3>
+										</div>
+										<div class="pull-right styl-price">
+											<p><a  href="javascript:void(0);" class="item_add"><span class="glyphicon grid-cart" aria-hidden="true"></span> <span class=" item_price">грн <?php echo $prId['price'];?></span></a></p>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>
+						<!-- end normal -->
+						<div class="quick-view">
+							<a href="<?php echo Url::to(['/product/index','id'=>$prId['id']]);?>"><?php echo \Yii::t('/yii','Quick view');?></a>
+						</div>
+					</div>
+				<?php endforeach;?>
+				<?php endif;?>
+                <div class="clearfix"></div>
             </div>
         </div>
         <div class="sub-news">
@@ -211,3 +125,6 @@ $this->title = 'My Yii Application';
                 </form>
             </div>
         </div>
+<?php else:?>
+nothing add		
+<?php endif;?>		

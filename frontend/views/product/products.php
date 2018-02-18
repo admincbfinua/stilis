@@ -2,254 +2,52 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-$this->title = 'product in category';
+if($menu)
+{
+	$this->params['breadcrumbs'][] = $menu->name;
+	$this->title = $menu->name .' '.\Yii::t('/yii','Dance shoes');
+}
+else
+{
+	$this->title = 'Купить '.\Yii::t('/yii','Dance shoes');
+}
 ?>
 			
 <div class="products-gallery">
            <div class="container">
                <div class="col-md-9 grid-gallery">
-                    <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                         <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/Agnes-LC.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-                                        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/Alexandr.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/Alonza-C.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/Antika-N.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid7.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid8.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                   <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid9.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                   <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid10.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                   <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid11.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                   <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid12.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                   <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid13.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-                   <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                        <!-- normal -->
-                            <div class="ih-item square effect3 bottom_to_top">
-                                <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid14.jpg" alt="/" class="img-responsive gri-wid"></div>
-                                <div class="info">
-                                    <div class="pull-left styl-hdn">
-                                        <h3>style 01</h3>
-                                    </div>
-                                    <div class="pull-right styl-price">
-        <p><a  href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart" aria-hidden="true"></span> <span class=" item_price">$190</span></a></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div></div>
-                            </div>
-                        <!-- end normal -->
-                        <div class="quick-view">
-                            <a href="<?php echo Url::to(['/product/index','id'=>100]);?>">Quick view</a>
-                        </div>
-                    </div>
-            <div class="clearfix"></div>
+                    <?php if($prCharCatIndex):?>
+						<?php foreach($prCharCatIndex as $prId):?>
+						<div class="col-md-4 grid-stn simpleCart_shelfItem">
+							 <!-- normal -->
+								<div class="ih-item square effect3 bottom_to_top">
+									<div class="bottom-2-top">
+										<div class="img"><img src="<?php echo Yii::$app->request->hostInfo . '/frontend/web/uploads/photos/1/'.$prId['image'];?>" alt="<?php echo $prId['name'];?>" class="img-responsive gri-wid" width="300" height="200">
+										</div>
+										<div class="info">
+											
+											<div class="pull-left styl-hdn">
+												<h4><?php echo $prId['name'];?></h4>
+											</div>
+											<div class="pull-right styl-price">
+												<p><a  href="javascript:void(0);" class="item_add"><span class="glyphicon grid-cart" aria-hidden="true"></span> <span class="text-danger"> <?php if($prId['disc']){echo '-'.$prId['disc'].'%OFF';}?></span></a></p>
+											</div>
+											
+											<div class="clearfix"></div>
+										</div>
+									</div>
+								</div>
+							<!-- end normal -->
+							<div class="quick-view">
+								<a href="<?php echo Url::to(['/product/index','id'=>$prId['id']]);?>"><?php echo \Yii::t('/yii','Quick view');?></a>
+							</div>
+						</div>
+						<?php endforeach;?>
+					<?php endif;?>
+					<div class="clearfix"></div>
                 </div>
+				
+				
                <div class="col-md-3 grid-details">
                     <div class="grid-addon">
                         <section  class="sky-form">
