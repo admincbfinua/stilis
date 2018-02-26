@@ -16,9 +16,9 @@ use mihaildev\ckeditor\CKEditor;
 //echo '</pre>';
 
 $lng = ArrayHelper::map($lang,'id','name');
-$menus = ArrayHelper::map($menu,'id','name');
+$menus = ArrayHelper::map($menu,'id','childs');
 $arrMenus = array();
-if($menu)
+/*if($menu)
 {
 	foreach($menu as $item)
 	{
@@ -26,6 +26,7 @@ if($menu)
 		$arrMenus[$item->id]= $item->name . ' '.$lngThis;//$item->name . '('.($item->language_id==1)?'рус':'укр'.')';
 	}
 }
+*/
 ?>
 
 <div class="product-form">
@@ -35,8 +36,8 @@ if($menu)
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
    
-	<?php if($arrMenus): ?>
-		<?= $form->field($model, 'menuId')->dropDownList($arrMenus) ?>
+	<?php if($menus): ?>
+		<?= $form->field($model, 'menuId')->dropDownList($menus) ?>
 	<?php else: ?>
 		 <?= $form->field($model, 'menuId')->textInput() ?>
 	<?php endif;?>
@@ -101,9 +102,9 @@ if($menu)
 	
 	<?php if(isset($prChar['color']) && $prChar['color']): ?>
 		 <?php $prChar['color']=json_decode($prChar['color']);?>
-	 <?= $form->field($prChar, 'color')->checkboxList(['gold'=>'gold','silver'=>'silver','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix']) ?>
+	 <?= $form->field($prChar, 'color')->checkboxList(['gold'=>'gold','silver'=>'silver','skin'=>'skin','pink'=>'pink','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix','pictures like'=>'pictures like']) ?>
 	<?php else: ?>	
-		<?= $form->field($prChar, 'color')->checkboxList(['gold'=>'gold','silver'=>'silver','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix']) ?>
+		<?= $form->field($prChar, 'color')->checkboxList(['gold'=>'gold','silver'=>'silver','skin'=>'skin','pink'=>'pink','white'=>'white','black'=>'black','broun'=>'broun','color mix'=>'clor mix','pictures like'=>'pictures like']) ?>
 	 <?php endif;?>
 	 
 	 <?php if(isset($prChar['size']) && $prChar['size']): ?>

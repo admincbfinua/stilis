@@ -58,12 +58,12 @@ class Product extends \yii\db\ActiveRecord
 	
 	public function getCharacter()
     {
-        return $this->hasMany(productCharacter::className(), ['productId' => 'id']);
+        return $this->hasMany(ProductCharacter::className(), ['productId' => 'id']);
     }
 	
 	public function getImage()
     {
-        return $this->hasMany(productImage::className(), ['productId' => 'id']);
+        return $this->hasMany(ProductImage::className(), ['productId' => 'id']);
     }
 	
 }

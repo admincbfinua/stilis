@@ -56,7 +56,12 @@ class ProductController extends Controller
         $model = new Product();
 		$lang = Language::find()->all();
 		$prPhotos = new ProductImage();
-		$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
+		$menu = Menu::find()->where(['not',['childs'=>'']])->all();
+		/*echo '<pre>';
+		print_r($menu);
+		echo '</pre>';
+		*/
+		//$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
 		//$prChar = ProductCharacter::find()->all();
 		$prChar = new ProductCharacter();
         if ($model->load(Yii::$app->request->post()) && $prChar->load(Yii::$app->request->post()))
@@ -119,7 +124,8 @@ class ProductController extends Controller
 			  $initPrevConfAsArr[]= ['url' => Url::to(['/product/delete-images','key' => $photo->name]),'key' => $photo->name];
 			}
 		}
-		$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
+		//$menu = Menu::find()->where('id >:id',[':id'=>1])->all();
+		$menu = Menu::find()->where(['not',['childs'=>'']])->all();
 		$prChar = ProductCharacter::find()->where(['productId'=>$id])->one();
         if ($model->load(Yii::$app->request->post()) && $prChar->load(Yii::$app->request->post())) 
 		{
@@ -198,8 +204,7 @@ class ProductController extends Controller
             $extension = end($imageNameParts);
             $src = Yii::$app->security->generateRandomString().".{$extension}";
             $imageResource = imagecreatefromjpeg($image->tempName);
-            $imageResource = imagerotate($imageResource, array_values([0, 0, 0, 180, 0, 0, -90, 0, 90])[@exif_read_data($image->tempName)['Orientation'] ?: 0
-], 0);
+    //$imageResource = imagerotate($imageResource, array_values([0, 0, 0, 180, 0, 0, -90, 0, 90])[@exif_read_data($image->tempName)['Orientation'] ?: 0], 0);
             //redifined path to write image 
 			FileHelper::createDirectory(Yii::getAlias('@frontend') . '/web/uploads/temp/1');
 			$target = Yii::getAlias('@frontend') . '/web/uploads/temp/1/' . $src;

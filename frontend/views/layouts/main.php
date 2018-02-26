@@ -75,8 +75,9 @@ AppAsset::register($this);
 								<?php foreach ($menu as $item) :?>
 									
 								<?php if (count($item->childs)):?>
- 
+								<?php $j=0;?>
 								<?php foreach ($item->childs as $child) :?>
+								
 								<?php if ($child->language_id == Lang::getCurrent()->id):?>
 								<li class="dropdown">
 									
@@ -94,11 +95,13 @@ AppAsset::register($this);
                                                 <?php endforeach; ?>   
                                                 </ul>
                                             </div>
+											
                                             <div class="col-sm-4 menu-img-pad">
-												<a href="/"><img src="images/menu1.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
+											<?php //echo '$j='.$j;?>
+												<a href="/"><img src="/frontend/web/uploads/photos/1/8TT0jrv261bQopKLOLYbdc73UdBWj4k0.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
                                             </div>
                                             <div class="col-sm-4 menu-img-pad">
-												<a href="/"><img src="images/menu2.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
+												<a href="/"><img src="/frontend/web/uploads/photos/1/EorebHJbu6hfOBlCHI90GXuLx7tuqvO1.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
                                             </div>
 											
                                         </div>
@@ -108,6 +111,7 @@ AppAsset::register($this);
 												
 								</li>
 								<?php endif;?>
+								<?php $j++;?>
 								<?php endforeach; ?>
 								<?php endif;?>
 							<?php endforeach; ?>

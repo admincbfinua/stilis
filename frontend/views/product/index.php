@@ -2,8 +2,17 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-$this->title = $model->name .' '. \Yii::t('/yii','Dance shoes');
-$this->params['breadcrumbs'][] = $model->name;
+/*echo '<pre>';
+print_r($model);
+echo '</pre>';die;
+*/
+$_title ='';
+if($model)
+{
+$_title =$model->name;
+}
+$this->title = $_title .' '. \Yii::t('/yii','Dance shoes');
+$this->params['breadcrumbs'][] = $_title;
 
 ?>
 <?php if($model):?>			
