@@ -14,7 +14,7 @@ die;
 <div class="header-end">
             <div class="container">
 				
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div style="height:600px !important;" id="myCarousel" class="carousel slide" data-ride="carousel">
                   
 				  <?php if($prCharSlider):?>
 				  <?php $count_Sliders=count($prCharSlider);?>

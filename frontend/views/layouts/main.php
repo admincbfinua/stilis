@@ -71,7 +71,13 @@ AppAsset::register($this);
 						<!-- new menu -->
 						<?php if($menu):?>
 						  <div class="collapse navbar-collapse collapse-pdng" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav nav-font">
+							<ul class="nav navbar-nav nav-font">
+								<?php $_imgArr = array(1=>array('yW2PBpEyL035PUwjU2cI0jDCYZd2V-L4.JPG','VZ0TbYQIgYsBKiSFQ06ER_g5Si4a1zQL.JPG'),
+													   2=>array('2FensmQGnP1NeqPW6coeA9inz1fzbL5T.JPG','I5uaqAcjfbCU7rELvGAudW26gL1TeQ1I.JPG'),
+													   3=>array('JVAqlcp-dhl3pg8gZYFAbfmXo0fMMSfi.JPG','WCB0Ir-F8JKH-lEgqNDd3FHQox4qTZHL.JPG'),
+													   4=>array('6F_SpeRVe23cOkFXPTlBQAsXAaTrXV7l.JPG','ZVMHVJTlPrd7-dTOseeP-B3Ol6tFJT-h.JPG'),
+													   5=>array('6wM269gTdMXObQCV1E-7dinvtqS_IEoB.JPG','X-AHB6f0y2ODLA-ggJqcYL2K0oh3vZhd.JPG'),
+								); ?>
 								<?php foreach ($menu as $item) :?>
 									
 								<?php if (count($item->childs)):?>
@@ -98,10 +104,10 @@ AppAsset::register($this);
 											
                                             <div class="col-sm-4 menu-img-pad">
 											<?php //echo '$j='.$j;?>
-												<a href="/"><img src="/frontend/web/uploads/photos/1/8TT0jrv261bQopKLOLYbdc73UdBWj4k0.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
+												<a href="/"><img src="<?php echo Yii::$app->request->hostInfo; ?>/frontend/web/uploads/photos/1/<?php if(isset($_imgArr[$j][0])){echo $_imgArr[$j][0];}?>" alt="" class="img-rsponsive men-img-wid" /></a>
                                             </div>
                                             <div class="col-sm-4 menu-img-pad">
-												<a href="/"><img src="/frontend/web/uploads/photos/1/EorebHJbu6hfOBlCHI90GXuLx7tuqvO1.jpg" alt="" class="img-rsponsive men-img-wid" /></a>
+												<a href="/"><img src="<?php echo Yii::$app->request->hostInfo; ?>/frontend/web/uploads/photos/1/<?php if(isset($_imgArr[$j][1])){echo $_imgArr[$j][1];}?>" alt="" class="img-rsponsive men-img-wid" /></a>
                                             </div>
 											
                                         </div>
@@ -209,7 +215,7 @@ AppAsset::register($this);
                     <!--header-bottom-->
             </div>
         </div>
-		<div>
+		<div class="container">
 		 <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -218,23 +224,28 @@ AppAsset::register($this);
 		<!--  main content goes here -->
 		<?= $content ?>
 		
-		<!-- footer -->
+		<!-- footer -->
+		<?php $menuFooter = $menus->getFooter();?>
         <div class="footer-grid">
             <div class="container">
                 <div class="col-md-2 re-ft-grd">
-				<?php if($menu):?>
+				<?php if($menuFooter):?>
                     <h3>Categories</h3>
                     <ul class="categories">
-					<?php foreach ($menu as $item) :?>
-					<?php if (count($item->childs)):?>
- 						<?php foreach ($item->childs as $child) :?>
-							<?php if ($child->language_id == Lang::getCurrent()->id):?>
-								<li><a href="<?php echo($child->route_url)? Url::to([$child->route_url]): null; ?>"><?php echo $child->name;?> </a></li>
-					
-							<?php endif;?>
-						<?php endforeach; ?>	
-					<?php endif;?>
-                       
+					<?php foreach ($menuFooter as $item) :?>
+						<?php $_arrFoot =array(); ?>
+						<?php if ($item->language_id == Lang::getCurrent()->id):?>
+							<li><a href="<?php echo($item->route_url)? Url::to(['/'.Lang::getCurrent()->url.$item->route_url,'id'=>$item->id]): null; ?>">
+							<?php if($item->childs)
+							{
+								$_arrFoot = explode('/',$item->childs);
+								if(isset($_arrFoot[0]) && isset($_arrFoot[1]))
+								{
+									echo $_arrFoot[0].' '.$_arrFoot[1];
+								}
+							}; ?>
+							</a></li>
+					    <?php endif;?>
 					<?php endforeach; ?>	
                     </ul>
 					<?php endif;?>
@@ -243,8 +254,8 @@ AppAsset::register($this);
                     <h3>Short links</h3>
                     <ul class="shot-links">
                         <li><a href="<?php echo Url::to(['/site/contact']);?>"><?php echo \Yii::t('/yii','Contacts');?></a></li>
-                        <li><a href="/"><?php echo \Yii::t('/yii','Support');?></a></li>
-                        <li><a href="/">Delivery<?php echo \Yii::t('/yii','Delivery');?></a></li>
+                        <li><a href="<?php echo Url::to(['/site/about']);?>"><?php echo \Yii::t('/yii','About');?></a></li>
+                        <li><a href="/"><?php echo \Yii::t('/yii','Delivery');?></a></li>
                         <li><a href="/"><?php echo \Yii::t('/yii','Return Policy');?></a></li>
                         <li><a href="/"><?php echo \Yii::t('/yii','Terms & conditions');?></a></li>
                         <li><a href="/"><?php echo \Yii::t('/yii','Sitemap');?></a></li>
@@ -252,10 +263,13 @@ AppAsset::register($this);
                 </div>
                 <div class="col-md-6 re-ft-grd">
                     <h3>On map</h3>
-                    
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d171337.31696603037!2d35.035271697973464!3d47.856143803937655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d1d9c87be1cfb1%3A0x428c5fd38ffb8591!2sIntourist+hotel!5e0!3m2!1sru!2sua!4v1519736095886" width="550" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
                 <div class="col-md-2 re-ft-grd">
-                     <h3>0953195738</h3>
+                     <h3>Pnone</h3>
+					 <h4>0958222183</h4>
+					 <h3>Email</h3>
+					 <h4>admin@stilis.com.ua</h4>
                 </div>
         <div class="clearfix"></div>
             </div>

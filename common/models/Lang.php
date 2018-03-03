@@ -8,7 +8,7 @@ class Lang extends \yii\db\ActiveRecord
     static $current = null;
     public static function tableName()
     {
-        return '{{%Lang}}';
+        return 'lang';
     }
 
    public function behaviors()
